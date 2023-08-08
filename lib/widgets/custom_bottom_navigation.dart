@@ -16,6 +16,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return BottomNavigationBar(
       onTap: widget.onTabSelected,
       currentIndex: widget.currentIndex,
+      selectedItemColor: Colors.blue, // Warna untuk item yang sedang dipilih
+      unselectedItemColor: Colors.grey, // Warna untuk item yang tidak dipilih
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
