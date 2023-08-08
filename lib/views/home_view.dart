@@ -12,46 +12,52 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: GridView.count(
-        crossAxisCount: 2, // jumlah kolom
-        children: <Widget>[
-          Card(
-            child: AspectRatio(
-              aspectRatio: 3/2, 
-              child: Center(child: Text('Customer')),
+      body: Center(  // Tambahkan widget Center di sini
+        child: GridView.count(
+          crossAxisCount: 2, // jumlah kolom
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          padding: const EdgeInsets.all(10),
+          childAspectRatio: 3 / 2,
+          children: <Widget>[
+            Card(
+              child: Container(
+                constraints: BoxConstraints.tightFor(height: 150),
+                child: Center(child: Text('Customer')),  // Dan di sini
+              ),
             ),
-          ),
-          Card(
-            child: AspectRatio(
-              aspectRatio: 3/2, 
-              child: Center(child: Text('Company')),
+            Card(
+              child: Container(
+                constraints: BoxConstraints.tightFor(height: 150),
+                child: Center(child: Text('Company')),
+              ),
             ),
-          ),
-          Card(
-            child: AspectRatio(
-              aspectRatio: 3/2, 
-              child: Center(child: Text('Meat')),
+            Card(
+              child: Container(
+                constraints: BoxConstraints.tightFor(height: 150),
+                child: Center(child: Text('Meat')),
+              ),
             ),
-          ),
-          Card(
-            child: AspectRatio(
-              aspectRatio: 3/2, 
-              child: Center(child: Text('Daily Expenditure')),
+            Card(
+              child: Container(
+                constraints: BoxConstraints.tightFor(height: 150),
+                child: Center(child: Text('Daily Expenditure')),
+              ),
             ),
-          ),
-          Card(
-            child: AspectRatio(
-              aspectRatio: 3/2, 
-              child: Center(child: Text('Transaction')),
+            Card(
+              child: Container(
+                constraints: BoxConstraints.tightFor(height: 150),
+                child: Center(child: Text('Transaction')),
+              ),
             ),
-          ),
-          Card(
-            child: AspectRatio(
-              aspectRatio: 3/2, 
-              child: Center(child: Text('Credit Payment')),
+            Card(
+              child: Container(
+                constraints: BoxConstraints.tightFor(height: 150),
+                child: Center(child: Text('Credit Payment')),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
