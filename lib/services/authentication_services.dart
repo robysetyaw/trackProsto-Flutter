@@ -19,7 +19,7 @@ class AuthenticationService {
 
 
     if (response.statusCode == 200) {
-      final token = json.decode(response.body)['token'];
+      final token = json.decode(response.body)['token '];
       await _storage.write(key: 'auth_token', value: token);
       return true;
     } else {

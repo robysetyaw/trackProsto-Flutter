@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'customer_view.dart';  // Pastikan Anda mengimpor CustomerView
 
 class HomeView extends StatefulWidget {
   @override
@@ -12,18 +13,26 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: Center(  // Tambahkan widget Center di sini
+      body: Center(
         child: GridView.count(
-          crossAxisCount: 2, // jumlah kolom
+          crossAxisCount: 2,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
           padding: const EdgeInsets.all(10),
           childAspectRatio: 3 / 2,
           children: <Widget>[
-            Card(
-              child: Container(
-                constraints: BoxConstraints.tightFor(height: 150),
-                child: Center(child: Text('Customer')),  // Dan di sini
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CustomerView()),
+                );
+              },
+              child: Card(
+                child: Container(
+                  constraints: BoxConstraints.tightFor(height: 150),
+                  child: Center(child: Text('Customer')),
+                ),
               ),
             ),
             Card(
