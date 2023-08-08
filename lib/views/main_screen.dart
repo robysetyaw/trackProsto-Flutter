@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
       case 3:
         // return UsersView();
       default:
-        return HomeView();
+        return StockReportView();
     }
   }
 
