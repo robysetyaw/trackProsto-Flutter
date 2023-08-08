@@ -22,12 +22,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.mail),
-          label: 'Messages',
+          icon: Icon(Icons.show_chart), // Gunakan ikon yang sesuai dengan kebutuhan Anda
+          label: 'Stock Report',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.swap_horiz), // Gunakan ikon yang sesuai dengan kebutuhan Anda
+          label: 'Transactions',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'Profile',
+          label: 'Users',
         ),
       ],
     );

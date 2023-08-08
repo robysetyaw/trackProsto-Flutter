@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/stock_report.dart';
 import '../services/stock_report_service.dart';
 
@@ -16,7 +17,11 @@ class _StockReportViewState extends State<StockReportView> {
   @override
   void initState() {
     super.initState();
-    _stockReportFuture = _stockReportService.getStockReport(_startDate.toString(), _endDate.toString());
+    _stockReportFuture = _stockReportService.getStockReport(
+      DateFormat('yyyy-MM-dd').format(_startDate),
+      DateFormat('yyyy-MM-dd').format(_endDate),
+    );
+
   }
 
   @override
@@ -28,7 +33,7 @@ class _StockReportViewState extends State<StockReportView> {
       body: Column(
         children: <Widget>[
           ElevatedButton(
-            child: Text('Start Date: $_startDate'),
+            child: Text('Start Date: ${DateFormat('yyyy-MM-dd').format(_startDate)}'),
             onPressed: () async {
               final date = await showDatePicker(
                 context: context,
@@ -39,13 +44,13 @@ class _StockReportViewState extends State<StockReportView> {
               if (date != null) {
                 setState(() {
                   _startDate = date;
-                  _stockReportFuture = _stockReportService.getStockReport(_startDate.toString(), _endDate.toString());
+                  _stockReportFuture = _stockReportService.getStockReport(DateFormat('yyyy-MM-dd').format(_startDate), DateFormat('yyyy-MM-dd').format(_endDate));
                 });
               }
             },
           ),
           ElevatedButton(
-            child: Text('End Date: $_endDate'),
+            child: Text('End Date: ${DateFormat('yyyy-MM-dd').format(_endDate)}'),
             onPressed: () async {
               final date = await showDatePicker(
                 context: context,
@@ -56,31 +61,33 @@ class _StockReportViewState extends State<StockReportView> {
               if (date != null) {
                 setState(() {
                   _endDate = date;
-                  _stockReportFuture = _stockReportService.getStockReport(_startDate.toString(), _endDate.toString());
+                  _stockReportFuture = _stockReportService.getStockReport(DateFormat('yyyy-MM-dd').format(_startDate), DateFormat('yyyy-MM-dd').format(_endDate));
                 });
               }
             },
           ),
-          FutureBuilder<List<StockReport>>(
-            future: _stockReportFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return ListView.builder(
-                  itemCount: snapshot.data?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final item = snapshot.data![index];
-                    return ListTile(
-                      title: Text(item.meatName),
-                      subtitle: Text('Stock Movement: ${item.stockMovement.toString()}'),
-                    );
-                  },
-                );
-              }
-            },
+          Expanded(
+            child: FutureBuilder<List<StockReport>>(
+              future: _stockReportFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      final item = snapshot.data![index];
+                      return ListTile(
+                        title: Text(item.meatName),
+                        subtitle: Text('Stock Movement: ${item.stockMovement.toString()}'),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),

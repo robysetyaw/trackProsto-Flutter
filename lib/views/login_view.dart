@@ -56,7 +56,7 @@ class _LoginViewState extends State<LoginView> {
 
                     if (success) {
                       // Navigate to the next screen if the login was successful
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(context, '/main');
                     } else {
                       // Show an error message if the login failed
                       ScaffoldMessenger.of(context).showSnackBar(
