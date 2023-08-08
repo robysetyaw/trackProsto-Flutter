@@ -26,7 +26,7 @@ class MeatService {
     }
   }
 
-  Future<bool> addMeat(String name, int stock, double price) async {
+  Future<bool> addMeat(String name, double stock, double price) async {
     final url = Uri.parse('$_baseUrl/meats');  // Replace with your endpoint
     final token = await _storage.read(key: 'auth_token');
 

@@ -1,7 +1,7 @@
 class Meat {
   final String name;
-  final int stock;
-  final int price;
+  final double stock;
+  final double price;
 
   Meat({
     required this.name,
@@ -12,8 +12,8 @@ class Meat {
   factory Meat.fromJson(Map<String, dynamic> json) {
     return Meat(
       name: json['name'],
-      stock: json['stock'],
-      price: json['price'],
+      stock: json['stock'].toDouble(),
+      price: json['price'].toDouble(),
     );
   }
 }

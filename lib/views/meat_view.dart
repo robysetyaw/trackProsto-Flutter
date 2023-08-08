@@ -62,9 +62,10 @@ class _MeatViewState extends State<MeatView> {
               // TODO: Call the service to add the new meat
               // You might want to check for input validation before calling the service
               // Here we are directly passing the entered values which might lead to exception if the values are not correct
-              bool success = await _meatService.addMeat(name, int.parse(stock), double.parse(price));
+              bool success = await _meatService.addMeat(name, double.parse(stock), double.parse(price));
               if (success) {
                 // Refresh the meat list
+                Navigator.pop(context); // menutup form setelah permintaan berhasil
                 setState(() {
                   _meatFuture = _meatService.getMeats();
                 });
