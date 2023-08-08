@@ -17,17 +17,82 @@ class _MeatViewState extends State<MeatView> {
     _meatFuture = _meatService.getMeats();
   }
 
+  void addMeat() {
+  String name = '';
+  String stock = '';
+  String price = '';
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Add New Meat'),
+        content: Column(
+          children: <Widget>[
+            TextField(
+              onChanged: (value) {
+                name = value;
+              },
+              decoration: InputDecoration(hintText: "Name"),
+            ),
+            TextField(
+              onChanged: (value) {
+                stock = value;
+              },
+              decoration: InputDecoration(hintText: "Stock"),
+            ),
+            TextField(
+              onChanged: (value) {
+                price = value;
+              },
+              decoration: InputDecoration(hintText: "Price"),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          ElevatedButton(
+            child: Text('Submit'),
+            onPressed: () async {
+              // TODO: Call the service to add the new meat
+              // You might want to check for input validation before calling the service
+              // Here we are directly passing the entered values which might lead to exception if the values are not correct
+              bool success = await _meatService.addMeat(name, int.parse(stock), double.parse(price));
+              if (success) {
+                // Refresh the meat list
+                setState(() {
+                  _meatFuture = _meatService.getMeats();
+                });
+                Navigator.of(context).pop();
+              } else {
+                // Show error message
+                // Handle your error here
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meats'),
+        title: Text('Meat'),
       ),
       body: FutureBuilder<List<Meat>>(
         future: _meatFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -37,18 +102,17 @@ class _MeatViewState extends State<MeatView> {
                 final item = snapshot.data![index];
                 return ListTile(
                   title: Text(item.name),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Stock: ${item.stock.toString()}'),
-                      Text('Price: ${item.price.toString()}'),
-                    ],
-                  ),
+                  subtitle: Text('Stock: ${item.stock} - Price: ${item.price}'),
                 );
               },
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: addMeat,  // Memanggil fungsi addMeat() saat ditekan
+        child: Icon(Icons.add),
+        backgroundColor: Colors.green,
       ),
     );
   }

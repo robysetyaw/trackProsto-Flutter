@@ -25,4 +25,28 @@ class MeatService {
       throw Exception('Failed to load meats');
     }
   }
+
+  Future<bool> addMeat(String name, int stock, double price) async {
+    final url = Uri.parse('$_baseUrl/meats');  // Replace with your endpoint
+    final token = await _storage.read(key: 'auth_token');
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'name': name,
+        'stock': stock,
+        'price': price,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
