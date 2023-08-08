@@ -79,10 +79,18 @@ class _StockReportViewState extends State<StockReportView> {
                     itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       final item = snapshot.data![index];
-                      return ListTile(
-                        title: Text(item.meatName),
-                        subtitle: Text('Stock Movement: ${item.stockMovement.toString()}'),
-                      );
+                       return ListTile(
+            title: Text(item.meatName),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('Total Stock: ${item.totalStock.toString()}'),
+                Text('Stock Movement: ${item.stockMovement.toString()}'),
+                Text('Total Stock In: ${item.totalStockIn.toString()}'), // Menambahkan total stock in
+                Text('Total Stock Out: ${item.totalStockOut.toString()}'), // Menambahkan total stock out
+              ],
+            ),
+          );
                     },
                   );
                 }

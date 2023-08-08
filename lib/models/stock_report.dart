@@ -4,6 +4,7 @@ class StockReport {
   final int totalStockIn;
   final int totalStockOut;
   final int stockMovement;
+  final int totalStock;
 
   StockReport({
     required this.meatId,
@@ -11,6 +12,7 @@ class StockReport {
     required this.totalStockIn,
     required this.totalStockOut,
     required this.stockMovement,
+    required this.totalStock,
   });
 
   factory StockReport.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,8 @@ class StockReport {
       totalStockIn: json['total_stock_in'],
       totalStockOut: json['total_stock_out'],
       stockMovement: json['stock_movement'],
+      totalStock: json['total_stock'],
     );
   }
+
 }
