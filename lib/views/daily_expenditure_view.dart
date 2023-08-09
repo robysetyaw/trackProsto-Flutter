@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meat_retailer/models/daily_expenditure.dart';
 import 'package:meat_retailer/services/daily_expenditure_service.dart';
 
@@ -14,7 +15,8 @@ class _DailyExpenditureViewState extends State<DailyExpenditureView> {
   @override
   void initState() {
     super.initState();
-    _dailyExpenditureFuture = _dailyExpenditureService.getAllDailyExpenditures();
+    _dailyExpenditureFuture =
+        _dailyExpenditureService.getAllDailyExpenditures();
   }
 
   @override
@@ -37,7 +39,17 @@ class _DailyExpenditureViewState extends State<DailyExpenditureView> {
                 final dailyExpenditure = snapshot.data![index];
                 return ListTile(
                   title: Text(dailyExpenditure.deNote),
-                  subtitle: Text(dailyExpenditure.description),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(dailyExpenditure.description),
+                      SizedBox(
+                          height:
+                              4.0), // Menambahkan sedikit jarak antara deskripsi dan tanggal
+                      Text(DateFormat('yyyy-MM-dd').format(dailyExpenditure
+                          .date)), // Format tanggal sesuai keinginan
+                    ],
+                  ),
                   trailing: Text(dailyExpenditure.amount.toString()),
                 );
               },

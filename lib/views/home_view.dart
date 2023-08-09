@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meat_retailer/views/company_view.dart';
+import 'package:meat_retailer/views/daily_expenditure_view.dart';
 import 'package:meat_retailer/views/meat_view.dart';
-import 'customer_view.dart';  // Pastikan Anda mengimpor CustomerView
+import 'customer_view.dart'; // Pastikan Anda mengimpor CustomerView
 
 class HomeView extends StatefulWidget {
   @override
@@ -38,39 +39,45 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             InkWell(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CompanyView()),
-    );
-  },
-  child: Card(
-    child: Container(
-      constraints: BoxConstraints.tightFor(height: 150),
-      child: Center(child: Text('Company')),
-    ),
-  ),
-),
-
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CompanyView()),
+                );
+              },
+              child: Card(
+                child: Container(
+                  constraints: BoxConstraints.tightFor(height: 150),
+                  child: Center(child: Text('Company')),
+                ),
+              ),
+            ),
             InkWell(
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MeatView()),
-    );
-  },
-  child: Card(
-    child: Container(
-      constraints: BoxConstraints.tightFor(height: 150),
-      child: Center(child: Text('Meat')),
-    ),
-  ),
-),
-
-            Card(
-              child: Container(
-                constraints: BoxConstraints.tightFor(height: 150),
-                child: Center(child: Text('Daily Expenditure')),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MeatView()),
+                );
+              },
+              child: Card(
+                child: Container(
+                  constraints: BoxConstraints.tightFor(height: 150),
+                  child: Center(child: Text('Meat')),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DailyExpenditureView()),
+                );
+              },
+              child: Card(
+                child: Container(
+                  constraints: BoxConstraints.tightFor(height: 150),
+                  child: Center(child: Text('Daily Expenditure')),
+                ),
               ),
             ),
             Card(

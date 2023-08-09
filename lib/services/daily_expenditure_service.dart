@@ -10,7 +10,7 @@ class DailyExpenditureService {
   Future<List<DailyExpenditure>> getAllDailyExpenditures() async {
     final token = await _storage.read(key: 'auth_token');
     final response = await http.get(
-      Uri.parse('$_baseUrl/path_to_endpoint'), // Gantilah 'path_to_endpoint' dengan endpoint yang sesuai
+      Uri.parse('$_baseUrl/daily-expenditures'), // Gantilah 'path_to_endpoint' dengan endpoint yang sesuai
       headers: {
         'Authorization': 'Bearer $token',
       },
