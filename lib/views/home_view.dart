@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meat_retailer/models/transaction.dart';
 import 'package:meat_retailer/views/company_view.dart';
 import 'package:meat_retailer/views/daily_expenditure_view.dart';
 import 'package:meat_retailer/views/meat_view.dart';
