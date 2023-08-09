@@ -24,4 +24,20 @@ class TransactionService {
       throw Exception('Failed to load transactions');
     }
   }
+
+  Future<bool> addTransaction(Map<String, dynamic> transactionData) async {
+  final token = await _storage.read(key: 'auth_token');
+  final response = await http.post(
+    Uri.parse('$_baseUrl/transactions'),
+    headers: {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    },
+    body: json.encode(transactionData),
+  );
+
+  return response.statusCode == 200;
+}
+
+
 }
