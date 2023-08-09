@@ -27,4 +27,22 @@ class CompanyService {
       throw Exception('Failed to load companies');
     }
   }
+
+  Future<bool> addCompany(Company company) async {
+    final token = await _storage.read(key: 'auth_token');
+    final response = await http.post(
+      Uri.parse('$_baseUrl/companies'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'company_name': company.companyName,
+        'address': company.address,
+        'email': company.email,
+        'phone_number': company.phoneNumber,
+      }),
+    );
+    return response.statusCode == 200;
+  }
 }
