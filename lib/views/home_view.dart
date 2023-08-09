@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meat_retailer/views/company_view.dart';
 import 'package:meat_retailer/views/meat_view.dart';
 import 'customer_view.dart';  // Pastikan Anda mengimpor CustomerView
 
@@ -36,12 +37,21 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            Card(
-              child: Container(
-                constraints: BoxConstraints.tightFor(height: 150),
-                child: Center(child: Text('Company')),
-              ),
-            ),
+            InkWell(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CompanyView()),
+    );
+  },
+  child: Card(
+    child: Container(
+      constraints: BoxConstraints.tightFor(height: 150),
+      child: Center(child: Text('Company')),
+    ),
+  ),
+),
+
             InkWell(
   onTap: () {
     Navigator.push(
