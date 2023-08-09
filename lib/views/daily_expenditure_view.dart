@@ -43,11 +43,9 @@ class _DailyExpenditureViewState extends State<DailyExpenditureView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(dailyExpenditure.description),
-                      SizedBox(
-                          height:
-                              4.0), // Menambahkan sedikit jarak antara deskripsi dan tanggal
-                      Text(DateFormat('yyyy-MM-dd').format(dailyExpenditure
-                          .date)), // Format tanggal sesuai keinginan
+                      SizedBox(height: 4.0),
+                      Text(DateFormat('yyyy-MM-dd')
+                          .format(dailyExpenditure.date)),
                     ],
                   ),
                   trailing: Text(dailyExpenditure.amount.toString()),
@@ -57,6 +55,74 @@ class _DailyExpenditureViewState extends State<DailyExpenditureView> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showAddDailyExpenditureDialog,
+        child: Icon(Icons.add),
+      ),
     );
+  }
+
+  void _showAddDailyExpenditureDialog() {
+    final TextEditingController amountController = TextEditingController();
+    final TextEditingController descriptionController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Add Daily Expenditure"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                controller: amountController,
+                decoration: InputDecoration(labelText: "Amount"),
+                keyboardType: TextInputType.number,
+              ),
+              TextFormField(
+                controller: descriptionController,
+                decoration: InputDecoration(labelText: "Description"),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: Text("Add"),
+              onPressed: () async {
+                if (amountController.text.isNotEmpty &&
+                    descriptionController.text.isNotEmpty) {
+                  final bool success = await _addDailyExpenditure(
+                    double.parse(amountController.text),
+                    descriptionController.text,
+                  );
+
+                  if (success) {
+                    Navigator.of(context).pop();
+                    setState(() {
+                      _dailyExpenditureFuture =
+                          _dailyExpenditureService.getAllDailyExpenditures();
+                    });
+                  } else {
+                    // Handle error here
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<bool> _addDailyExpenditure(double amount, String description) async {
+    final dailyExpenditure = {
+      "amount": amount,
+      "description": description,
+    };
+    return await _dailyExpenditureService.addDailyExpenditure(dailyExpenditure);
   }
 }
