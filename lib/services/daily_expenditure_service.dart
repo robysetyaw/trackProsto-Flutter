@@ -23,4 +23,18 @@ class DailyExpenditureService {
       throw Exception('Failed to load daily expenditures');
     }
   }
+
+  Future<bool> addDailyExpenditure(Map<String, dynamic> dailyExpenditure) async {
+    final token = await _storage.read(key: 'auth_token');
+    final response = await http.post(
+      Uri.parse('$_baseUrl/daily-expenditures'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(dailyExpenditure),
+    );
+
+    return response.statusCode == 200;
+  }
 }
